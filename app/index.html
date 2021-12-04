@@ -4,13 +4,15 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="./styles/main.css" />
+    <link rel="stylesheet" href="./styles/util.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap"
       rel="stylesheet"
     />
+    <script src="https://unpkg.com/phosphor-icons"></script>
     <script src="./scripts/login.js" defer></script>
     <title>Somesystem | Log in to your account</title>
   </head>
@@ -21,11 +23,20 @@
         <!-- TODO Maybe have something different here, company or app name could work(?) -->
         <h1>Somesystem</h1>
         <form>
-          <label for="email">Email</label>
+          <label for="email"
+            ><i class="ph-envelope-simple-bold decoration"></i> Email</label
+          >
           <input type="email" name="email" id="email" placeholder="Email" />
-          <label for="pass">Password</label>
+          <label for="pass"
+            ><i class="ph-key-bold decoration"></i> Password</label
+          >
           <input type="password" name="pass" id="pass" placeholder="Password" />
-          <input type="submit" value="Login" id="login" />
+          <button id="login" class="primary-button">
+            <i class="ph-sign-in-bold decoration"></i> Login
+          </button>
+          <footer>
+            Don't have an account yet? Register <strong>here</strong>.
+          </footer>
         </form>
       </div>
     </div>

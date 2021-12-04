@@ -1,6 +1,8 @@
 :root {
-  --primary-color: #538cc6;
-  --secondary-color: #cc0000;
+  --primary-color: #2d4654;
+  /* --secondary-color: #4e4d5c; */
+  --secondary-color: #f06449;
+  --secondary-dark: #cc5740;
   --card-color: white;
   --border-color: #ccc;
 }
@@ -29,7 +31,12 @@ body {
   color: transparent;
 }
 
-.form-container form label,
+.form-container form label {
+  display: flex;
+  align-items: center;
+  fill: white;
+}
+
 .form-container form input {
   display: block;
 }
@@ -40,7 +47,7 @@ body {
 
 .form-container {
   background: var(--card-color);
-  border-radius: 20px;
+  border-radius: 5px;
   width: 30%;
   padding: 3rem;
 }
@@ -54,14 +61,12 @@ body {
 }
 
 .form-container input {
-  /* border: 1px solid var(--border-color); */
   line-height: 1.7rem;
   font-size: 1rem;
-  border-radius: 50px;
+  border-radius: 5px;
   margin-bottom: 1.5rem;
   width: 100%;
   background: rgb(228, 228, 228);
-  /* border: 1px solid #ccc; */
   border: none;
 }
 
@@ -72,8 +77,32 @@ body {
   padding: 0.3rem;
   width: 100%;
   color: var(--card-color);
-  margin-top: 4rem;
+  margin-top: 5rem;
+  border-radius: 5px;
+  margin-bottom: 2rem;
   letter-spacing: 2px;
+  line-height: 1.7rem;
+  font-size: 1rem;
+  border-bottom: 4px solid var(--secondary-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .form-container #login i {
+  margin-right: 5px;
+} */
+
+.form-container footer {
+  text-align: center;
+  width: 100%;
+  justify-content: center;
+}
+
+.form-container footer strong {
+  text-decoration: underline;
+  cursor: pointer;
+  color: var(--secondary-color);
 }
 
 @media (max-width: 500px) {

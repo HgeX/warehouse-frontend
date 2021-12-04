@@ -2,7 +2,7 @@ const emailField = document.getElementById('email');
 const passwordField = document.getElementById('pass');
 const loginButton = document.getElementById('login');
 
-// TODO maybe don't do store users like this.
+// TODO maybe don't store users like this.
 const users = [{ email: 'test@test.test', password: 'hello' }];
 
 loginButton.addEventListener('click', event => {
