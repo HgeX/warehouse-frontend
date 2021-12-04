@@ -1,6 +1,6 @@
 :root {
+  --main-font-color: #4f4f4f;
   --primary-color: #2d4654;
-  /* --secondary-color: #4e4d5c; */
   --secondary-color: #f06449;
   --secondary-dark: #cc5740;
   --card-color: white;
@@ -16,6 +16,7 @@
 body {
   font-family: 'Raleway', sans-serif;
   background: var(--primary-color);
+  color: var(--main-font-color);
 }
 
 .container {
@@ -77,7 +78,8 @@ body {
   padding: 0.3rem;
   width: 100%;
   color: var(--card-color);
-  margin-top: 5rem;
+  /* margin-top: 5rem; */
+  margin-top: 4rem;
   border-radius: 5px;
   margin-bottom: 2rem;
   letter-spacing: 2px;
@@ -88,10 +90,6 @@ body {
   align-items: center;
   justify-content: center;
 }
-
-/* .form-container #login i {
-  margin-right: 5px;
-} */
 
 .form-container footer {
   text-align: center;
