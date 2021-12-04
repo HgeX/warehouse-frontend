@@ -1,4 +1,27 @@
+:root {
+  --main-font-color: #424242;
+  --dark-color: #2d4654;
+  --primary-color: #f06449;
+  --primary-accent-color: #cc5740;
+  --main-color: #ebebeb;
+  --border-color: #dadad9;
+}
+
 /* Used for icons */
 .decoration {
   margin-right: 5px;
+}
+
+.primary-button {
+  /* Reset the default ugly border */
+  border: none;
+  background: var(--primary-color);
+  border-bottom: 4px solid var(--primary-accent-color);
+  color: var(--main-color);
+  border-radius: 5px;
+  margin-bottom: 2rem;
+  letter-spacing: 2px;
+  line-height: 1.7rem;
+  font-size: 1rem;
+  cursor: pointer;
 }
