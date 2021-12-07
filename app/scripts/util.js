@@ -1,11 +1,19 @@
 function searchHandler() { //determines what type of search to run and calls relevant function
 
     let searchinput = ""; //fetch from user input in search bar
-    searchinput = searchinput.toLowerCase(); //terrible sanitization for the sake of simplified regex
-
-    //let searchparameter = searchinput.REXE_HERE
+    
+    //DEPRECATED searchinput = searchinput.toLowerCase(); 
+    //let searchparameter = searchinput.REGEX_HERE
     //regex ([a-z]*[A-Z]*[a-z]*)|([A-Z]*[a-z]*)(?=:) should probably maybe work even with bad casing, but fails on multiple separated capitals in the middle of the parameter string
     //otherwise [a-z]*(?=:) is fine
+    //actually \w+(?=:) is better, turns out writing regex at 4am is a bad idea. Should remove need to convert lowercase
+    //let searchcontent = searchinput;
+    //let searchcontent = searchcontent.replace(REGEX_HERE);
+    //proposed regex for content \w+(?=:): => ""
+    // searchcontent should now be correct search string to search literally. Convert all to lower to make case insensitive??
+
+
+
 
     let switchmatchedflag = false;
 

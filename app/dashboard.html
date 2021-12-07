@@ -4,8 +4,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Dashboard</title>
+
+    <script src="./scripts/util.js"></script>
+
   </head>
+
+ <!-- Hey Tamas feel free to do whatever you want to the rest of the HTML in here, I'm just going to create a quick and dirty search bar to help test my search functions -->
 
   <body>
     <header>
@@ -14,5 +19,13 @@
       -->
     </header>
     <div id="hook"></div>
+
+    <form>
+      <label for="userInput">Input a search term:</label><br>
+      <input type="userInput" id="userInput" name="userInput"><br>
+    </form>  
+
+    <input type="button" id="callSearch" onclick="searchHandler()" value="Click to search"/> 
+
   </body>
 </html>
