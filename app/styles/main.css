@@ -45,6 +45,7 @@ body {
 #clear-icon {
   padding-right: 1rem;
   cursor: pointer;
+  color: var(--primary-accent-color);
 }
 
 #search:focus {
