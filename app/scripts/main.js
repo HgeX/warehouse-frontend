@@ -8,12 +8,16 @@ const clearSearchButton = document.getElementById('clear-icon');
 const logoutButton = document.getElementById('logout-button');
 
 [searchButton, dummySearchButton].forEach(button =>
-  button.addEventListener('click', event => {
-    event.preventDefault();
-    console.log('called');
-    // TODO call searchHandler (util.js)
-  })
+  button.addEventListener('click', event => handleSearch(event))
 );
+
+function handleSearch(event) {
+  event.preventDefault();
+  const search = searchInput.value;
+  if (search) {
+    searchHandler(search);
+  }
+}
 
 const formattedText = WELCOME_TEXT.concat(sessionStorage.getItem('username'));
 welcomeHook.textContent = formattedText;

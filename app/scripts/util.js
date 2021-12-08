@@ -1,7 +1,7 @@
-function searchHandler() {
+function searchHandler(searchinput) {
   //determines what type of search to run and calls relevant function
 
-  let searchinput = document.getElementById('userInput').value; //fetch from user input in search bar
+  //let searchinput = document.getElementById('userInput').value; //fetch from user input in search bar
   console.log('search input is: ' + searchinput); // debug
 
   let myRegex = /\w+(?=:)/; // finds whole word behind first colon in order to determine search parameter
