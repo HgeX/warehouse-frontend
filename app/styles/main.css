@@ -35,15 +35,15 @@ body {
 }
 
 .search-container #search {
-  width: 33rem;
+  width: 31rem;
 }
 
 #search-icon {
+  cursor: pointer;
   padding-left: 1rem;
 }
 
 #clear-icon {
-  padding-right: 1rem;
   cursor: pointer;
   color: var(--main-font-color);
   transition: color ease-in-out 0.2s;
@@ -52,6 +52,10 @@ body {
 #clear-icon:hover {
   color: var(--primary-accent-color);
   transition: color ease-in-out 0.2s;
+}
+
+#dummy-search-button {
+  display: none;
 }
 
 #search:focus {

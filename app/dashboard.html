@@ -24,22 +24,26 @@
       <p id="welcome"></p>
       <div class="search-container">
         <i id="search-icon" class="ph-magnifying-glass"></i>
-        <input
-          type="text"
-          id="search"
-          placeholder="Search..."
-          class="primary-input navbar-item"
-        />
+        <form>
+          <input
+            type="text"
+            id="search"
+            placeholder="Search..."
+            class="primary-input navbar-item"
+          />
+          <!-- This is sort of hacky too, basically this button
+          was only added, so that hitting enter would do something
+          when typing in the search bar. That behaviour could probably
+          be replicated (which would likely be more elegant than the
+          current approach), but it would be just too much work for
+          seemingly having the same effect. The button is hidden  -->
+          <input id="dummy-search-button" type="submit" />
+        </form>
         <i id="clear-icon" class="ph-x"></i>
       </div>
       <button id="logout-button" class="primary-button">
         <i class="ph-sign-out decoration"></i> Logout
       </button>
-      <!-- <button id="call-search" class="primary-button navbar-item">
-        Search
-      </button> -->
-      <!-- I'm not sure if we need a button, really. I think it looks a bit silly. Also, registering an event listener for
-      when the enter key is hit should be absolutely doable. -->
     </nav>
     <div id="hook">Hello</div>
   </body>
