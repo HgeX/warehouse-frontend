@@ -35,7 +35,7 @@ body {
 }
 
 .search-container #search {
-  width: 30rem;
+  width: 33rem;
 }
 
 #search-icon {
@@ -45,19 +45,42 @@ body {
 #clear-icon {
   padding-right: 1rem;
   cursor: pointer;
+  color: var(--main-font-color);
+  transition: color ease-in-out 0.2s;
+}
+
+#clear-icon:hover {
   color: var(--primary-accent-color);
+  transition: color ease-in-out 0.2s;
 }
 
 #search:focus {
   outline: none;
-  /* TODO maybe change the color, in which case a transition would be nice to have */
 }
 
-#call-search {
-  padding: 0 0.7rem;
-  letter-spacing: normal;
+#logout-button {
+  display: flex;
+  align-items: center;
+  border: none;
+  background: var(--dark-accent-color);
+  /*
+   * This is a bit hacky. Maybe not just a bit.
+   * When hovering over this button, the border
+   * gets updated which causes the whole menu
+   * section to shift down a bit because 2 extra
+   * pixels get added to the overall thickness.
+   * Is it clear? If not, then you're not alone
+   * whith that LOL
+   */
+  border: 1px solid var(--dark-accent-color);
+  letter-spacing: 1px;
+  padding: 0.4rem 1rem;
+  margin-left: 35rem;
+  transition: all 0.2s ease-in-out;
 }
 
-.navbar-item {
-  margin: 0 1rem;
+#logout-button:hover {
+  background: var(--dark-color);
+  border: 1px solid var(--dark-accent-color);
+  transition: all 0.2s ease-in-out;
 }
