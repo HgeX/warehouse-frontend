@@ -4,7 +4,7 @@
   --primary-color: #f06449;
   --primary-accent-color: #cc5740;
   --secondary-color: #5bc3eb;
-  --secondary-accent-color: #55b4da;
+  --secondary-accent-color: #4ba0c2;
   --main-color: #ebebeb;
   --border-color: #dadad9;
 }
@@ -21,7 +21,6 @@
   border-bottom: 4px solid var(--primary-accent-color);
   color: var(--main-color);
   border-radius: 5px;
-  margin-bottom: 2rem;
   letter-spacing: 2px;
   line-height: 1.7rem;
   font-size: 1rem;

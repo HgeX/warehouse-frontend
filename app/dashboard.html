@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;800&display=swap"
       rel="stylesheet"
     />
     <script src="https://unpkg.com/phosphor-icons"></script>
@@ -18,36 +18,25 @@
     <title>Dashboard</title>
   </head>
 
-  <!-- Hey Tamas feel free to do whatever you want to the rest of the HTML in here, I'm just going to create a quick and dirty search bar to help test my search functions -->
-
   <body>
-    <!-- <header>
-
-    </header>
-    <div id="hook"></div>
-
-    <form>
-      <label for="searchBar">Input a search term:</label><br />
-      <input type="text" id="userInput" /><br />
-    </form>
-
-    <input
-      type="button"
-      id="callSearch"
-      onclick="searchHandler()"
-      value="Click to search"
-    /> -->
-
     <nav id="main-nav">
-      <!-- The name welcome text is rendered by JavaScript -->
+      <!-- The welcome text is rendered by JavaScript -->
       <p id="welcome" class="navbar-item"></p>
-      <input
-        type="text"
-        id="search"
-        placeholder="Search..."
-        class="primary-input navbar-item"
-      />
-      <button id="call-search" class="primary-button">Search</button>
+      <div class="search-container">
+        <i id="search-icon" class="ph-magnifying-glass"></i>
+        <input
+          type="text"
+          id="search"
+          placeholder="Search..."
+          class="primary-input navbar-item"
+        />
+        <i id="clear-icon" class="ph-x"></i>
+      </div>
+      <!-- <button id="call-search" class="primary-button navbar-item">
+        Search
+      </button> -->
+      <!-- I'm not sure if we need a button, really. I think it looks a bit silly. Also, registering an event listener for
+      when the enter key is hit should be absolutely doable. -->
     </nav>
     <div id="hook">Hello</div>
   </body>
