@@ -4,28 +4,51 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/phosphor-icons"></script>
+    <link rel="stylesheet" href="./styles/util.css" />
+    <link rel="stylesheet" href="./styles/main.css" />
+    <script src="./scripts/util.js" defer></script>
+    <script src="./scripts/main.js" defer></script>
     <title>Dashboard</title>
-
-    <script src="./scripts/util.js"></script>
-
   </head>
 
- <!-- Hey Tamas feel free to do whatever you want to the rest of the HTML in here, I'm just going to create a quick and dirty search bar to help test my search functions -->
+  <!-- Hey Tamas feel free to do whatever you want to the rest of the HTML in here, I'm just going to create a quick and dirty search bar to help test my search functions -->
 
   <body>
-    <header>
-      <!--
-        <user-icon>
-      -->
+    <!-- <header>
+
     </header>
     <div id="hook"></div>
 
     <form>
-      <label for="searchBar">Input a search term:</label><br>
-      <input type="text" id="userInput"><br>
-    </form>  
+      <label for="searchBar">Input a search term:</label><br />
+      <input type="text" id="userInput" /><br />
+    </form>
 
-    <input type="button" id="callSearch" onclick="searchHandler()" value="Click to search"/> 
+    <input
+      type="button"
+      id="callSearch"
+      onclick="searchHandler()"
+      value="Click to search"
+    /> -->
 
+    <nav id="main-nav">
+      <!-- The name welcome text is rendered by JavaScript -->
+      <p id="welcome" class="navbar-item"></p>
+      <input
+        type="text"
+        id="search"
+        placeholder="Search..."
+        class="primary-input navbar-item"
+      />
+      <button id="call-search" class="primary-button">Search</button>
+    </nav>
+    <div id="hook">Hello</div>
   </body>
 </html>

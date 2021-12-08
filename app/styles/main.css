@@ -1,0 +1,42 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Raleway', sans-serif;
+  color: var(--main-font-color);
+  background: var(--main-color);
+}
+
+#main-nav {
+  background: var(--dark-color);
+  color: var(--main-color);
+  display: flex;
+  padding: 1rem;
+  align-items: center;
+  /* justify-content: center; */
+}
+
+#main-nav p {
+  margin: 0 3rem;
+  text-transform: uppercase;
+}
+
+#search {
+  border-radius: 50px;
+}
+
+#search:focus {
+  outline: none;
+  /* TODO maybe change the color, in which case a transition would be nice to have */
+}
+
+#call-search {
+  padding: 0.3rem;
+}
+
+.navbar-item {
+  padding: 0 3rem;
+}

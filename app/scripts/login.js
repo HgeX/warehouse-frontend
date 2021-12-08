@@ -3,7 +3,9 @@ const passwordField = document.getElementById('pass');
 const loginButton = document.getElementById('login');
 
 // TODO maybe don't store users like this.
-const users = [{ email: 'test@test.test', password: 'hello' }];
+const users = [
+  { email: 'test@test.test', password: 'hello', name: 'John Doe' }
+];
 
 loginButton.addEventListener('click', event => {
   event.preventDefault();
@@ -30,6 +32,7 @@ function handleLogin() {
     } else {
       // TODO redirect user to dashboard, this doesn't feel like the right way to do it.
       window.location.replace('./dashboard.html');
+      sessionStorage.setItem('username', user.name);
     }
   }
 }
