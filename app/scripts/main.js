@@ -9,7 +9,5 @@ searchButton.addEventListener('click', event => {
   // TODO call searchHandler (util.js)
 });
 
-window.addEventListener('login', event => renderGreeting(event.user));
-
 const formattedText = WELCOME_TEXT.concat(sessionStorage.getItem('username'));
 welcomeHook.textContent = formattedText;
