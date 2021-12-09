@@ -89,3 +89,7 @@ body {
   border: 1px solid var(--dark-accent-color);
   transition: all 0.2s ease-in-out;
 }
+
+.main-container {
+  margin: 1rem;
+}
