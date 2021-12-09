@@ -40,4 +40,7 @@ fetch(ORDERS_URL)
   .then(resp => resp.json())
   .then(orders => storeData(orders))
   .then(_ => (loadingText.style.display = 'display'))
-  .catch(err => (loadingText = `An internal error occured. ${err.message}`));
+  .catch(
+    err =>
+      (loadingText.textContent = `An internal error occured. ${err.message}`)
+  );
