@@ -2,9 +2,10 @@ const emailField = document.getElementById('email');
 const passwordField = document.getElementById('pass');
 const loginButton = document.getElementById('login');
 
-// TODO maybe don't store users like this.
 const users = [
-  { email: 'test@test.test', password: 'hello', name: 'John Doe' }
+  { email: 'test@test.test', password: 'hello', name: 'John Doe' },
+  { email: 'admin@admin.admin', password: 'admin', name: 'Fred Johnson' },
+  { email: 'roci@roci.roci', password: 'roci', name: 'James Holden' },
 ];
 
 loginButton.addEventListener('click', event => {
@@ -30,7 +31,6 @@ function handleLogin() {
     if (!user) {
       alert('Invalid email and/or password, please try again!');
     } else {
-      // TODO redirect user to dashboard, this doesn't feel like the right way to do it.
       window.location.replace('./dashboard.html');
       sessionStorage.setItem('username', user.name);
     }
