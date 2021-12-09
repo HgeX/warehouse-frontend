@@ -1,3 +1,13 @@
+const ORDERS_KEY = '__orders__';
+
+function storeData(orders) {
+  sessionStorage.setItem(ORDERS_KEY, orders);
+}
+
+function getOrders() {
+  return sessionStorage.getItem(ORDERS_KEY);
+}
+
 function searchHandler(searchinput) {
   //determines what type of search to run and calls relevant function
 
