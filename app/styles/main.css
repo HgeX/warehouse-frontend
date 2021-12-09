@@ -16,6 +16,7 @@ body {
   display: flex;
   align-items: center;
   padding: 1rem;
+  margin-bottom: 2rem;
 }
 
 #main-nav p {
