@@ -39,7 +39,7 @@ logoutButton.addEventListener('click', event => {
 fetch(ORDERS_URL)
   .then(resp => resp.json())
   .then(orders => storeData(orders))
-  .then(_ => (loadingText.style.display = 'display'))
+  .then(_ => (loadingText.style.display = 'none'))
   .catch(
     err =>
       (loadingText.textContent = `An internal error occured. ${err.message}`)
