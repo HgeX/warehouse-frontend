@@ -1,3 +1,8 @@
+if (!sessionStorage.getItem('username')) {
+  // In this case dashboard.html was opened directly without logging in.
+  window.location.replace('./index.html');
+}
+
 // True constants
 const WELCOME_TEXT = 'Welcome, ';
 const ORDERS_URL = 'http://www.cc.puv.fi/~asa/json/project.json';
