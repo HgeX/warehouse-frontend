@@ -121,10 +121,12 @@ body {
   padding: 1rem;
   width: 25vw;
   cursor: pointer;
+  transition: box-shadow 0.2s ease-in-out;
 }
 
 .card:hover {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  transition: box-shadow 0.2s ease-in-out;
 }
 
 .card-title {
