@@ -16,7 +16,7 @@ body {
   display: grid;
   gap: 2rem;
   grid-auto-flow: column;
-  grid-template-areas: 'welcome welcome searchbar searchbar searchbar searchbar searchbar logout';
+  grid-template-areas: 'welcome searchbar searchbar searchbar searchbar searchbar logout';
   align-items: center;
   padding: 1rem 2rem;
   margin-bottom: 2rem;
@@ -36,11 +36,12 @@ body {
   background: var(--dark-accent-color);
   border-radius: 5px;
   color: var(--main-color);
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   width: 80%;
 }
 
 .search-container #search {
+  flex: 1;
   background: var(--dark-accent-color);
   width: inherit;
 }
@@ -52,7 +53,6 @@ body {
 
 #search-icon {
   cursor: pointer;
-  padding-left: 1rem;
 }
 
 #clear-icon {
@@ -92,7 +92,6 @@ body {
   border: 1px solid var(--dark-accent-color);
   letter-spacing: 1px;
   padding: 0.4rem 0.5rem;
-  /* margin-left: 35rem; */
   text-align: center;
   justify-content: center;
   transition: all 0.2s ease-in-out;
