@@ -28,15 +28,22 @@ body {
 .search-container {
   display: flex;
   align-items: center;
-  background: var(--border-color);
-  border-radius: 50px;
-  width: 35rem;
-  color: var(--main-font-color);
+  background: var(--dark-accent-color);
+  border-radius: 5px;
+  border: 1px solid var(--dark-accent-color);
+  width: 40vw;
+  color: var(--main-color);
   padding: 0.2rem;
 }
 
 .search-container #search {
-  width: 31rem;
+  width: 35vw;
+  background: var(--dark-accent-color);
+}
+
+::placeholder {
+  color: var(--main-color);
+  opacity: 1;
 }
 
 #search-icon {
@@ -46,7 +53,7 @@ body {
 
 #clear-icon {
   cursor: pointer;
-  color: var(--main-font-color);
+  color: var(--main-color);
   transition: color ease-in-out 0.2s;
 }
 
