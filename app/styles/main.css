@@ -109,17 +109,14 @@ body {
 
 #hook {
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: max-content;
+  grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
-  width: 100%;
 }
 
 .card {
   background: var(--main-color);
   border-radius: 10px;
   padding: 1rem;
-  width: 25vw;
   cursor: pointer;
   transition: box-shadow 0.2s ease-in-out;
 }
