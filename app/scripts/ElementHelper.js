@@ -1,4 +1,4 @@
-class ElementHelper {
+export default class {
   htmlElement;
 
   constructor(tagName) {

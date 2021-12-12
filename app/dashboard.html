@@ -13,9 +13,12 @@
     <script src="https://unpkg.com/phosphor-icons"></script>
     <link rel="stylesheet" href="./styles/util.css" />
     <link rel="stylesheet" href="./styles/main.css" />
-    <script src="./scripts/ElementHelper.js" defer></script>
-    <script src="./scripts/util.js" defer></script>
-    <script type="module" src="./scripts/main.js" defer></script>
+    <!-- Basically acts as a "guard". If you'd open dashboard.html directly,
+    it'd redirect you to index.html. Because it doesn't have the defer
+    property, this redirection would happen immediately, which is what we're after. -->
+    <script src="./scripts/loginguard.js"></script>
+    <!-- type="module" automatically enables the defer attribute (does that make sense?) -->
+    <script type="module" src="./scripts/main.js"></script>
     <title>Dashboard</title>
   </head>
 

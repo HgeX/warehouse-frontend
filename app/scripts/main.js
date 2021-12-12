@@ -1,7 +1,5 @@
-if (!sessionStorage.getItem('username')) {
-  // In this case dashboard.html was opened directly without logging in.
-  window.location.replace('./index.html');
-}
+import ElementHelper from './ElementHelper.js';
+import searchHandler from './util.js';
 
 // True constants
 const WELCOME_TEXT = 'Welcome, ';
@@ -39,7 +37,6 @@ searchInput.addEventListener('keyup', event => {
 const orders = await fetchData();
 if (orders) {
   loadingText.style.display = 'none';
-} else {
   renderOrders(orders);
 }
 
@@ -56,7 +53,7 @@ function handleSearch(event) {
   event.preventDefault();
   const search = searchInput.value;
   if (search) {
-    searchHandler(search);
+    searchHandler(search, orders);
   }
 }
 

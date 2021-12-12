@@ -1,17 +1,3 @@
-const ORDERS_KEY = '__orders__';
-
-function storeData(orders) {
-  sessionStorage.setItem(ORDERS_KEY, orders);
-}
-
-function getOrders() {
-  console.log('getORders');
-  const result = sessionStorage.getItem(ORDERS_KEY);
-  console.log(result);
-  console.log(typeof result);
-  return result;
-}
-
 async function importJSONFromWeb() {
   try {
     const resp = await fetch(ORDERS_URL);
@@ -23,7 +9,7 @@ async function importJSONFromWeb() {
   }
 }
 
-function searchHandler(searchinput) {
+export default function (searchinput, orders) {
   //determines what type of search to run and calls relevant function
   console.log('search input is: ' + searchinput); // debug
 
@@ -46,7 +32,7 @@ function searchHandler(searchinput) {
   searchcontent = searchcontent.replace(/\w+(?=:):/, ''); // removes search parameter and colon from string, leaving just search contents
   console.log('searchcontent is: ' + searchcontent); // debug
 
-  console.log(getOrders());
+  console.log(orders);
 
   switch (searchparameter) {
     case 'orderid':
