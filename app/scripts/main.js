@@ -33,7 +33,7 @@ logoutButton.addEventListener('click', event => {
 
 searchButton.addEventListener('click', event => handleSearch(event));
 searchInput.addEventListener('keyup', event => {
-  if (searchInput === document.activeElement && event.code === 'Enter') {
+  if (searchInput === document.activeElement && event.key === 'Enter') {
     handleSearch(event);
   }
 });

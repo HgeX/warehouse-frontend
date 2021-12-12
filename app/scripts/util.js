@@ -8,15 +8,29 @@ function getOrders() {
   return sessionStorage.getItem(ORDERS_KEY);
 }
 
-function searchHandler(searchinput) {
-  //determines what type of search to run and calls relevant function
+async function importJSONFromWeb() {
+  try {
+      const resp = await fetch(ORDERS_URL);
+      let jsonData = await resp.json();
 
-  //let searchinput = document.getElementById('userInput').value; //fetch from user input in search bar
+      return jsonData;
+  } catch (error) {
+      console.log(`Failed to fetch data: ${error.message}`);
+  }
+}
+
+function searchHandler(searchinput) { //determines what type of search to run and calls relevant function
   console.log('search input is: ' + searchinput); // debug
 
   let myRegex = /\w+(?=:)/; // finds whole word behind first colon in order to determine search parameter
-  let regexArray = myRegex.exec(searchinput); //performs regex operation on searchinput string to load result into regexArray
+  let regexArray = [];
 
+  if (myRegex.exec(searchinput) != null) { //terrible hack to prevent a null return
+    regexArray = myRegex.exec(searchinput); //performs regex operation on searchinput string to load result into regexArray
+  } else {
+    regexArray = ["dummy"];
+  }
+  
   console.log('Regex array is: ' + regexArray); // debug
   console.log('Search parameter is: ' + regexArray[0]); // debug
 
@@ -26,6 +40,8 @@ function searchHandler(searchinput) {
   searchcontent = searchcontent.replace(/\w+(?=:):/, ''); // removes search parameter and colon from string, leaving just search contents
   console.log('searchcontent is: ' + searchcontent); // debug
 
+  console.log(importJSONFromWeb());
+
   let switchmatchedflag = false;
 
   switch (searchparameter) {
@@ -33,48 +49,41 @@ function searchHandler(searchinput) {
       orderIDSearch();
       switchmatchedflag = true;
       console.log('orderid condition matched'); // debug
-
       break;
 
     case 'customerid':
       customerIDSearch();
       switchmatchedflag = true;
       console.log('customerid condition matched'); // debug
-
       break;
 
     case 'address':
       addressSearch();
       switchmatchedflag = true;
       console.log('address condition matched'); // debug
-
       break;
 
     case 'date':
       deliveryDateSearch();
       switchmatchedflag = true;
       console.log('date condition matched'); // debug
-
       break;
 
     case 'salesperson':
       repSalesPersonSearch();
       switchmatchedflag = true;
       console.log('salesperson condition matched'); // debug
-
       break;
 
     case 'productid':
       productCodeSearch();
       switchmatchedflag = true;
       console.log('productid condition matched'); // debug
-
       break;
   }
 
   if (!switchmatchedflag) {
-    //TODO Basic search not called due to regex array = null
-    console.log('basic search condition matched');
+    console.log('basic search condition matched'); // debug
     basicSearch();
   }
 }
