@@ -23,7 +23,6 @@ clearSearchButton.addEventListener('click', () => {
 logoutButton.addEventListener('click', event => {
   event.preventDefault();
   sessionStorage.removeItem('username');
-  sessionStorage.removeItem(ORDERS_KEY);
   window.location.replace('./index.html');
 });
 
