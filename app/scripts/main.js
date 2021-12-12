@@ -18,9 +18,7 @@ const loadingText = document.getElementById('loading-text');
 const formattedText = WELCOME_TEXT.concat(sessionStorage.getItem('username'));
 welcomeHook.textContent = formattedText;
 
-console.log(clearSearchButton);
 clearSearchButton.addEventListener('click', () => {
-  console.log('called');
   searchInput.value = null;
 });
 
@@ -38,31 +36,19 @@ searchInput.addEventListener('keyup', event => {
   }
 });
 
-fetch(ORDERS_URL)
-  .then(resp => resp.json())
-  .then(orders => storeData(orders))
-  .then(_ => (loadingText.style.display = 'none'))
-  .catch(
-    err =>
-      (loadingText.textContent = `An internal error occured. ${err.message}`)
-  );
+const orders = await fetchData();
+if (orders) {
+  loadingText.style.display = 'none';
+}
 
-// TODO Remove this
-const orders = [
-  {
-    orderid: 0,
-    customerid: 12,
-    products: ['a', 'nb', 'c'],
-    comment: 'Hello There!'
-  },
-  {
-    orderid: 1,
-    customerid: 45,
-    products: ['a', 'nb', 'c', 'd', 'e', 'f']
+async function fetchData() {
+  try {
+    const resp = await fetch(ORDERS_URL).then(resp => resp.json());
+    return resp;
+  } catch (e) {
+    loadingText.textContent = `An internal error occured. ${e.message}`;
   }
-];
-
-renderOrders(orders);
+}
 
 function handleSearch(event) {
   event.preventDefault();

@@ -5,32 +5,38 @@ function storeData(orders) {
 }
 
 function getOrders() {
-  return sessionStorage.getItem(ORDERS_KEY);
+  console.log('getORders');
+  const result = sessionStorage.getItem(ORDERS_KEY);
+  console.log(result);
+  console.log(typeof result);
+  return result;
 }
 
 async function importJSONFromWeb() {
   try {
-      const resp = await fetch(ORDERS_URL);
-      let jsonData = await resp.json();
+    const resp = await fetch(ORDERS_URL);
+    let jsonData = await resp.json();
 
-      return jsonData;
+    return jsonData;
   } catch (error) {
-      console.log(`Failed to fetch data: ${error.message}`);
+    console.log(`Failed to fetch data: ${error.message}`);
   }
 }
 
-function searchHandler(searchinput) { //determines what type of search to run and calls relevant function
+function searchHandler(searchinput) {
+  //determines what type of search to run and calls relevant function
   console.log('search input is: ' + searchinput); // debug
 
   let myRegex = /\w+(?=:)/; // finds whole word behind first colon in order to determine search parameter
   let regexArray = [];
 
-  if (myRegex.exec(searchinput) != null) { //terrible hack to prevent a null return
+  if (myRegex.exec(searchinput) != null) {
+    //terrible hack to prevent a null return
     regexArray = myRegex.exec(searchinput); //performs regex operation on searchinput string to load result into regexArray
   } else {
-    regexArray = ["dummy"];
+    regexArray = ['dummy'];
   }
-  
+
   console.log('Regex array is: ' + regexArray); // debug
   console.log('Search parameter is: ' + regexArray[0]); // debug
 
@@ -82,7 +88,7 @@ function searchHandler(searchinput) { //determines what type of search to run an
     default:
       console.log('basic search condition matched'); // debug
       basicSearch(searchcontent);
-  } 
+  }
 }
 
 function basicSearch(searchTerm) {
@@ -115,5 +121,5 @@ function productCodeSearch(searchTerm) {
 
 function populateFields() {
   let ordersObJ = getOrders();
-  document.getElementById("outputParagraph").innerHTML = ordersObJ;
+  document.getElementById('outputParagraph').innerHTML = ordersObJ;
 }
