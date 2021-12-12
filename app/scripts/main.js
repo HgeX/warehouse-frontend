@@ -57,16 +57,18 @@ function handleSearch(event) {
 }
 
 function hideRenderedOrders() {
+  const childrenToRemove = [];
   for (const child of hook.children) {
-    child.remove();
+    childrenToRemove.push(child);
   }
+
+  childrenToRemove.forEach(child => hook.removeChild(child));
 }
 
 function renderOrders(orders) {
   orders.forEach(each => renderSingleOrder(each));
 }
 
-// TODO set click events
 function renderSingleOrder(order) {
   const orderContainer = ElementHelper.create('div').setClass('card');
   // Create title
@@ -103,6 +105,16 @@ function renderSingleOrder(order) {
     .setText(`Product count: ${order.products.length}`)
     .setParent(productInfoContainer);
 
+  // Create price info
+  const priceInfoContainer = ElementHelper.create('div')
+    .setClass('price-info card-entry additional-info')
+    .setParent(orderContainer);
+  ElementHelper.create('i').setClass('ph-wallet').setParent(priceInfoContainer);
+  ElementHelper.create('p')
+    .setClass('decorated')
+    .setText(`Total price: ${order.totalprice}`)
+    .setParent(priceInfoContainer);
+
   // Create comment info
   const comment = order.comment;
   const commentInfoContainer = ElementHelper.create('div')
@@ -114,5 +126,40 @@ function renderSingleOrder(order) {
     .setText(comment ? `Comment: ${comment}` : 'No comment was added.')
     .setParent(commentInfoContainer);
 
+  orderContainer.htmlElement.addEventListener('click', () =>
+    renderDetails(order)
+  );
   hook.appendChild(orderContainer.htmlElement);
+}
+
+function renderDetails(order) {
+  console.log('renderDetails');
+  hideRenderedOrders();
+  const div = document.createElement('div');
+  div.innerHTML = `
+    <p>${order.orderid}</p>
+    <p>${order.customerid}</p>
+    <p>${order.customer}</p>
+    <p>${order.invaddr}</p>
+    <p>${order.delivaddr}</p>
+    <p>${order.deliverydate}</p>
+    <p>${order.respsalesperson}</p>
+    <p>${order.comment}</p>
+    <p>${order.totalprice}</p>
+  `;
+
+  order.products.forEach(product => {
+    div.innerHTML += `
+      <p>-------------</p>
+      <p>${product.code}</p>
+      <p>${product.product}</p>
+      <p>${product.description}</p>
+      <p>${product.suppliercode}</p>
+      <p>${product.qty}</p>
+      <p>${product.unit_price}</p>
+      <p>${product.shelf_pos}</p>
+    `;
+  });
+
+  hook.appendChild(div);
 }
