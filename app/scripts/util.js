@@ -40,78 +40,80 @@ function searchHandler(searchinput) { //determines what type of search to run an
   searchcontent = searchcontent.replace(/\w+(?=:):/, ''); // removes search parameter and colon from string, leaving just search contents
   console.log('searchcontent is: ' + searchcontent); // debug
 
-  console.log(importJSONFromWeb());
-
-  let switchmatchedflag = false;
+  console.log(getOrders());
 
   switch (searchparameter) {
     case 'orderid':
-      orderIDSearch();
+      orderIDSearch(searchcontent);
       switchmatchedflag = true;
       console.log('orderid condition matched'); // debug
       break;
 
     case 'customerid':
-      customerIDSearch();
+      customerIDSearch(searchcontent);
       switchmatchedflag = true;
       console.log('customerid condition matched'); // debug
       break;
 
     case 'address':
-      addressSearch();
+      addressSearch(searchcontent);
       switchmatchedflag = true;
       console.log('address condition matched'); // debug
       break;
 
     case 'date':
-      deliveryDateSearch();
+      deliveryDateSearch(searchcontent);
       switchmatchedflag = true;
       console.log('date condition matched'); // debug
       break;
 
     case 'salesperson':
-      repSalesPersonSearch();
+      repSalesPersonSearch(searchcontent);
       switchmatchedflag = true;
       console.log('salesperson condition matched'); // debug
       break;
 
     case 'productid':
-      productCodeSearch();
+      productCodeSearch(searchcontent);
       switchmatchedflag = true;
       console.log('productid condition matched'); // debug
       break;
-  }
 
-  if (!switchmatchedflag) {
-    console.log('basic search condition matched'); // debug
-    basicSearch();
-  }
+    default:
+      console.log('basic search condition matched'); // debug
+      basicSearch(searchcontent);
+  } 
 }
 
-function basicSearch() {
+function basicSearch(searchTerm) {
   // basic search funtion, seaches for matches against orderid, customerid. Called when no search parameter is given, or if given parameter is invalid
 }
 
-function orderIDSearch() {
+function orderIDSearch(searchTerm) {
   // called with parameter "orderid"
 }
 
-function customerIDSearch() {
+function customerIDSearch(searchTerm) {
   // called with parameter "customerid"
 }
 
-function addressSearch() {
+function addressSearch(searchTerm) {
   // called with parameter "address"
 }
 
-function deliveryDateSearch() {
+function deliveryDateSearch(searchTerm) {
   // called with parameter "date"
 }
 
-function repSalesPersonSearch() {
+function repSalesPersonSearch(searchTerm) {
   // called with parameter "salesperson"
 }
 
-function productCodeSearch() {
+function productCodeSearch(searchTerm) {
   // called with parameter "productid"
+}
+
+function populateFields() {
+  let ordersObJ = getOrders();
+  document.getElementById("outputParagraph").innerHTML = ordersObJ;
 }
