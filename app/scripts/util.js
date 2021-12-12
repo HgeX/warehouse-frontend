@@ -1,16 +1,19 @@
-async function importJSONFromWeb() {
-  try {
-    const resp = await fetch(ORDERS_URL);
-    let jsonData = await resp.json();
+// async function importJSONFromWeb() {
+//   try {
+//     const resp = await fetch(ORDERS_URL);
+//     let jsonData = await resp.json();
 
-    return jsonData;
-  } catch (error) {
-    console.log(`Failed to fetch data: ${error.message}`);
-  }
-}
+//     return jsonData;
+//   } catch (error) {
+//     console.log(`Failed to fetch data: ${error.message}`);
+//   }
+// }
 
 export default function (searchinput, orders) {
   //determines what type of search to run and calls relevant function
+
+  let output = [];
+
   console.log('search input is: ' + searchinput); // debug
 
   let myRegex = /\w+(?=:)/; // finds whole word behind first colon in order to determine search parameter
@@ -36,76 +39,104 @@ export default function (searchinput, orders) {
 
   switch (searchparameter) {
     case 'orderid':
-      orderIDSearch(searchcontent);
-      switchmatchedflag = true;
       console.log('orderid condition matched'); // debug
+      output = orderIDSearch(searchcontent, orders);
       break;
 
     case 'customerid':
-      customerIDSearch(searchcontent);
-      switchmatchedflag = true;
       console.log('customerid condition matched'); // debug
+      output = customerIDSearch(searchcontent, orders);
       break;
 
     case 'address':
-      addressSearch(searchcontent);
-      switchmatchedflag = true;
       console.log('address condition matched'); // debug
+      output = addressSearch(searchcontent, orders);
       break;
 
     case 'date':
-      deliveryDateSearch(searchcontent);
-      switchmatchedflag = true;
       console.log('date condition matched'); // debug
+      output = deliveryDateSearch(searchcontent, orders);
       break;
 
     case 'salesperson':
-      repSalesPersonSearch(searchcontent);
-      switchmatchedflag = true;
       console.log('salesperson condition matched'); // debug
+      output = respSalesPersonSearch(searchcontent, orders);
       break;
 
     case 'productid':
-      productCodeSearch(searchcontent);
-      switchmatchedflag = true;
       console.log('productid condition matched'); // debug
+      output = productCodeSearch(searchcontent, orders);
       break;
 
     default:
       console.log('basic search condition matched'); // debug
-      basicSearch(searchcontent);
+      output = basicSearch(searchcontent, orders);
   }
+
+  return output;
+
 }
 
-function basicSearch(searchTerm) {
+function basicSearch(searchTerm, ordersArray) { //TODO expand search scope
   // basic search funtion, seaches for matches against orderid, customerid. Called when no search parameter is given, or if given parameter is invalid
+  let results = [];
+
+  for (let i=0; i < ordersArray.length; i++) {
+    if ((ordersArray[i].orderid == searchTerm) || (ordersArray[i].customerid == searchTerm)) {
+      results.push(ordersArray[i].orderid);
+      console.log("Array of matched orders: " + results); //debug
+    }
+  }
+  return results;
 }
 
-function orderIDSearch(searchTerm) {
-  // called with parameter "orderid"
+function orderIDSearch(searchTerm, ordersArray) {
+  // called with parameter "orderid". Returns an array of orderids that match
+  let results = [];
+
+  for (let i=0; i < ordersArray.length; i++) {
+    if (ordersArray[i].orderid == searchTerm) {
+      results.push(ordersArray[i].orderid);
+      console.log("Array of matched orders: " + results); //debug
+    }
+  }
+  return results;
 }
 
-function customerIDSearch(searchTerm) {
-  // called with parameter "customerid"
+function customerIDSearch(searchTerm, ordersArray) {
+  // called with parameter "customerid". Returns an array of orderids that match
+  let results = [];
+
+  for (let i=0; i < ordersArray.length; i++) {
+    if (ordersArray[i].customerid == searchTerm) {
+      results.push(ordersArray[i].orderid);
+      console.log("Array of matched orders: " + results); //debug
+    }
+  }
+  return results;
 }
 
-function addressSearch(searchTerm) {
-  // called with parameter "address"
+function addressSearch(searchTerm, ordersArray) { //TODO implement address search
+  // called with parameter "address". Returns an array of orderids that match
 }
 
-function deliveryDateSearch(searchTerm) {
-  // called with parameter "date"
+function deliveryDateSearch(searchTerm, ordersArray) { //TODO implement delivery date search
+  // called with parameter "date". Returns an array of orderids that match
 }
 
-function repSalesPersonSearch(searchTerm) {
-  // called with parameter "salesperson"
+function respSalesPersonSearch(searchTerm, ordersArray) { //TODO improve case desensitisation
+  // called with parameter "salesperson". Returns an array of orderids that match
+  let results = [];
+
+  for (let i=0; i < ordersArray.length; i++) {
+    if (ordersArray[i].respsalesperson.toUpperCase() == searchTerm.toUpperCase()) {
+      results.push(ordersArray[i].orderid);
+      console.log("Array of matched orders: " + results); //debug
+    }
+  }
+  return results;
 }
 
-function productCodeSearch(searchTerm) {
-  // called with parameter "productid"
-}
-
-function populateFields() {
-  let ordersObJ = getOrders();
-  document.getElementById('outputParagraph').innerHTML = ordersObJ;
+function productCodeSearch(searchTerm, ordersArray) { //TODO implement product id search
+  // called with parameter "productid". Returns an array of orderids that match
 }

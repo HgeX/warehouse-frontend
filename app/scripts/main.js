@@ -112,7 +112,7 @@ function renderSingleOrder(order) {
   ElementHelper.create('i').setClass('ph-wallet').setParent(priceInfoContainer);
   ElementHelper.create('p')
     .setClass('decorated')
-    .setText(`Total price: ${order.totalprice}`)
+    .setText(`Total price: ${order.totalprice}€`)
     .setParent(priceInfoContainer);
 
   // Create comment info
