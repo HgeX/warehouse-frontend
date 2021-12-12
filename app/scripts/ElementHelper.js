@@ -1,4 +1,4 @@
-export default class {
+class ElementHelper {
   htmlElement;
 
   constructor(tagName) {
@@ -29,3 +29,5 @@ export default class {
     return new ElementHelper(tagName);
   }
 }
+
+export default ElementHelper;
