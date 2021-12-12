@@ -39,6 +39,8 @@ searchInput.addEventListener('keyup', event => {
 const orders = await fetchData();
 if (orders) {
   loadingText.style.display = 'none';
+} else {
+  renderOrders(orders);
 }
 
 async function fetchData() {
