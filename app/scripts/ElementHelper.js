@@ -16,7 +16,9 @@ class ElementHelper {
   }
 
   setOnClick(onClick) {
-    this.htmlElement.onClick = onClick;
+    this.htmlElement.onclick = event => {
+      onClick(event, this);
+    };
     return this;
   }
 
@@ -32,6 +34,11 @@ class ElementHelper {
 
   setAttr(attr, val) {
     this.htmlElement.setAttribute(attr, val);
+    return this;
+  }
+
+  do(action) {
+    action(this.htmlElement);
     return this;
   }
 

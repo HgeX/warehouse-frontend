@@ -74,7 +74,9 @@ function renderOrders(orders) {
 function renderSingleOrder(order, parent) {
   const orderContainer = ElementHelper.create('div')
     .setClass('card')
-    .setParent(parent);
+    .setParent(parent)
+    .setOnClick(() => renderDetails(order));
+
   // Create title
   const titleContainer = ElementHelper.create('div')
     .setClass('card-title card-entry')
@@ -84,6 +86,12 @@ function renderSingleOrder(order, parent) {
     .setClass('decorated')
     .setText(`Order #${order.orderid}`)
     .setParent(titleContainer);
+
+  if (order.ready) {
+    ElementHelper.create('i')
+      .setClass('ph-check-circle decorated')
+      .setParent(titleContainer);
+  }
 
   // Create customer info
   const customerInfoContainer = ElementHelper.create('div')
@@ -135,10 +143,6 @@ function renderSingleOrder(order, parent) {
     .setClass('decorated')
     .setText(commentText)
     .setParent(commentInfoContainer);
-
-  orderContainer.htmlElement.addEventListener('click', () =>
-    renderDetails(order)
-  );
 }
 
 function renderDetails(order) {
@@ -161,10 +165,22 @@ function renderDetails(order) {
     .setText('Back to all orders')
     .setParent(backContainer);
 
+  const orderIdContainer = ElementHelper.create('div')
+    .setParent(container)
+    .setId('orderid-container');
+
   ElementHelper.create('h3')
     .setText(`Order details #${order.orderid}`)
     .setClass('category')
-    .setParent(container);
+    .setParent(orderIdContainer);
+  const checkmark = ElementHelper.create('i')
+    .setClass('ph-check-circle decorated')
+    .do(element =>
+      order.ready
+        ? (element.style.visibility = 'visible')
+        : (element.style.visibility = 'hidden')
+    )
+    .setParent(orderIdContainer);
 
   const orderInfoContainer = ElementHelper.create('div')
     .setParent(container)
@@ -289,7 +305,6 @@ function renderDetails(order) {
   const textarea = ElementHelper.create('textarea')
     .setAttr('placeholder', 'Add a comment...')
     .setAttr('rows', '7')
-    .setAttr('cols', '100')
     .setParent(container);
   textarea.htmlElement.addEventListener('keyup', event => {
     if (
@@ -302,6 +317,44 @@ function renderDetails(order) {
       renderDetails(order);
     }
   });
+
+  const readyButtonText = 'Mark as ready';
+  const notReadyButtonText = 'Mark as not ready';
+  const action = order.ready
+    ? button => {
+        checkmark.htmlElement.style.visibility = 'hidden';
+        button.htmlElement.textContent = readyButtonText;
+        order.ready = false;
+      }
+    : button => {
+        checkmark.htmlElement.style.visibility = 'visible';
+        button.htmlElement.textContent = notReadyButtonText;
+        order.ready = true;
+      };
+  ElementHelper.create('button')
+    .setClass('primary-button')
+    .setId('done-button')
+    .setText(order.ready ? notReadyButtonText : readyButtonText)
+    .setParent(
+      ElementHelper.create('div')
+        .setId('done-button-container')
+        .setParent(container)
+    )
+    .setOnClick((event, button) => {
+      event.preventDefault();
+      const action = order.ready
+        ? button => {
+            checkmark.htmlElement.style.visibility = 'hidden';
+            button.htmlElement.textContent = readyButtonText;
+            order.ready = false;
+          }
+        : button => {
+            checkmark.htmlElement.style.visibility = 'visible';
+            button.htmlElement.textContent = notReadyButtonText;
+            order.ready = true;
+          };
+      action(button);
+    });
 
   hook.appendChild(container.htmlElement);
 }
