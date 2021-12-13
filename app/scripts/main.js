@@ -52,6 +52,8 @@ function handleSearch(event) {
   event.preventDefault();
   const search = searchInput.value;
   if (search) {
+    //hideRenderedContent();
+    //renderOrders(searchHandler(search, orders));
     searchHandler(search, orders);
   }
 }

@@ -95,7 +95,7 @@ function addressSearch(searchTerm, ordersArray) { // called with parameter "addr
 
   for (let i=0; i < ordersArray.length; i++) {
     if (ordersArray[i].invaddr == searchTerm) {
-      results.push(ordersArray[i].orderid);
+      results.push(ordersArray[i]);
     } else if (ordersArray[i].delivaddr == searchTerm) {//I THINK that this elif should prevent duplicates when both delivery address and invoice address are filled and the same. Please leave as-is
       results.push(ordersArray[i]);
     }
