@@ -40,3 +40,7 @@
 .primary-input:focus {
   outline: 2px solid var(--primary-color);
 }
+
+.strikethrough {
+  text-decoration: line-through;
+}

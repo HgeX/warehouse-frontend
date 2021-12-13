@@ -251,3 +251,23 @@ body {
   padding: 0.5rem 1rem;
   letter-spacing: 1px;
 }
+
+#products-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  width: calc(100% - 2rem);
+  padding: 1rem;
+  padding-bottom: 2rem;
+}
+
+#products-container > * {
+  margin-right: 1rem;
+  margin-top: 1rem;
+}
+
+#products-container .switch-container {
+  display: flex;
+  align-items: center;
+}

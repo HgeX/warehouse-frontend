@@ -75,7 +75,10 @@ function renderSingleOrder(order, parent) {
   const orderContainer = ElementHelper.create('div')
     .setClass('card')
     .setParent(parent)
-    .setOnClick(() => renderDetails(order));
+    .setOnClick(() => {
+      renderDetails(order);
+      window.scrollTo(0, 0);
+    });
 
   // Create title
   const titleContainer = ElementHelper.create('div')
@@ -270,14 +273,58 @@ function renderDetails(order) {
 
   const productsContainer = ElementHelper.create('div')
     .setParent(container)
+    .setClass('product-info-entry')
     .setId('products-container');
 
   products.forEach(product => {
-    ElementHelper.create('p')
+    const text = product.product
+      ? `${product.product} - ${product.code}`
+      : `${product.code}`;
+    const switchContainer = ElementHelper.create('div')
       .setParent(productsContainer)
-      .setText(
-        `${product.code} | ${product.product} | ${product.description} | ${product.suppliercode} | ${product.qty} | ${product.unit_price} | ${product.shelf_pos}`
+      .setClass(`switch-container`);
+    const checkbox = ElementHelper.create('input')
+      .setAttr('type', 'checkbox')
+      .setParent(switchContainer);
+    if (product.collected) {
+      checkbox.setAttr('checked', 'true');
+    }
+    const textContainer = ElementHelper.create('p')
+      .setParent(switchContainer)
+      .setText(text)
+      .setClass(`decorated`);
+    const descContainer = ElementHelper.create('p')
+      .setParent(productsContainer)
+      .setText(`${product.description}`);
+    const supplierContainer = ElementHelper.create('p')
+      .setParent(productsContainer)
+      .setText(`${product.suppliercode}`);
+    const priceContainer = ElementHelper.create('p')
+      .setParent(productsContainer)
+      .setText(`${product.unit_price}€`);
+    const posContainer = ElementHelper.create('p')
+      .setParent(productsContainer)
+      .setText(`${product.shelf_pos}`);
+
+    const row = [
+      textContainer,
+      descContainer,
+      supplierContainer,
+      priceContainer,
+      posContainer
+    ];
+    row.forEach(element => {
+      if (product.collected) {
+        element.htmlElement.classList.toggle('strikethrough');
+      }
+    });
+
+    checkbox.htmlElement.addEventListener('change', () => {
+      row.forEach(element =>
+        element.htmlElement.classList.toggle('strikethrough')
       );
+      product.collected = !product.collected;
+    });
   });
 
   const comments = order.comment ? order.comment.split(';') : [];
@@ -289,7 +336,7 @@ function renderDetails(order) {
 
   const commentsContainer = ElementHelper.create('div')
     .setParent(container)
-    .setId('products-container');
+    .setId('comments-container');
 
   comments.forEach(comment => {
     const commentContainer = ElementHelper.create('div')
@@ -320,17 +367,6 @@ function renderDetails(order) {
 
   const readyButtonText = 'Mark as ready';
   const notReadyButtonText = 'Mark as not ready';
-  const action = order.ready
-    ? button => {
-        checkmark.htmlElement.style.visibility = 'hidden';
-        button.htmlElement.textContent = readyButtonText;
-        order.ready = false;
-      }
-    : button => {
-        checkmark.htmlElement.style.visibility = 'visible';
-        button.htmlElement.textContent = notReadyButtonText;
-        order.ready = true;
-      };
   ElementHelper.create('button')
     .setClass('primary-button')
     .setId('done-button')
