@@ -1,14 +1,3 @@
-// async function importJSONFromWeb() {
-//   try {
-//     const resp = await fetch(ORDERS_URL);
-//     let jsonData = await resp.json();
-
-//     return jsonData;
-//   } catch (error) {
-//     console.log(`Failed to fetch data: ${error.message}`);
-//   }
-// }
-
 export default function (searchinput, orders) {
   //determines what type of search to run and calls relevant function
 
@@ -29,7 +18,7 @@ export default function (searchinput, orders) {
   console.log('Regex array is: ' + regexArray); // debug
   console.log('Search parameter is: ' + regexArray[0]); // debug
 
-  let searchparameter = regexArray[0]; // copies first regex match from array to a string //TODO fix to be case insensitive
+  let searchparameter = regexArray[0].toLowerCase(); // copies first regex match from array to a string //TODO fix to be case insensitive
 
   let searchcontent = searchinput; // copies search input to a new string for manipulation
   searchcontent = searchcontent.replace(/\w+(?=:):/, ''); // removes search parameter and colon from string, leaving just search contents
@@ -116,20 +105,32 @@ function customerIDSearch(searchTerm, ordersArray) {
   return results;
 }
 
-function addressSearch(searchTerm, ordersArray) { //TODO implement address search
+function addressSearch(searchTerm, ordersArray) { //TODO make case insensitive? I'm a bit worried that without doing it properly it'll cause unicode issues
   // called with parameter "address". Returns an array of orderids that match
+  let results = [];
+
+  for (let i=0; i < ordersArray.length; i++) {
+    if (ordersArray[i].invaddr == searchTerm) {
+      results.push(ordersArray[i].orderid);
+      console.log("Array of matched orders: " + results); //debug
+    } else if (ordersArray[i].delivaddr == searchTerm) {//I THINK that this elif should prevent duplicates when both delivery address and invoice address are filled and the same. Please leave as-is
+      results.push(ordersArray[i].orderid);
+      console.log("Array of matched orders: " + results);
+    }
+  }
+  return results;
 }
 
 function deliveryDateSearch(searchTerm, ordersArray) { //TODO implement delivery date search
   // called with parameter "date". Returns an array of orderids that match
 }
 
-function respSalesPersonSearch(searchTerm, ordersArray) { //TODO improve case desensitisation
+function respSalesPersonSearch(searchTerm, ordersArray) { 
   // called with parameter "salesperson". Returns an array of orderids that match
   let results = [];
 
   for (let i=0; i < ordersArray.length; i++) {
-    if (ordersArray[i].respsalesperson.toUpperCase() == searchTerm.toUpperCase()) {
+    if (ordersArray[i].respsalesperson.toUpperCase() == searchTerm.toUpperCase()) { //TODO improve case desensitisation
       results.push(ordersArray[i].orderid);
       console.log("Array of matched orders: " + results); //debug
     }
@@ -137,6 +138,19 @@ function respSalesPersonSearch(searchTerm, ordersArray) { //TODO improve case de
   return results;
 }
 
-function productCodeSearch(searchTerm, ordersArray) { //TODO implement product id search
+function productCodeSearch(searchTerm, ordersArray) {
   // called with parameter "productid". Returns an array of orderids that match
+  let results = [];
+  let productsArray = [];
+
+  for (let i=0; i < ordersArray.length; i++) {
+    productsArray = ordersArray[i].products;
+    for (let j=0; j < productsArray.length; j++) {
+      if (productsArray[j].code.toUpperCase() == searchTerm.toUpperCase()) { //TODO improve case desensitisation
+        results.push(ordersArray[i].orderid);
+        console.log("Array of matched orders: " + results); //debug
+      }
+    }
+  }
+  return results;
 }
