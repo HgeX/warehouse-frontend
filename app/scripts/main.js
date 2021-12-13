@@ -56,7 +56,7 @@ function handleSearch(event) {
   }
 }
 
-function hideRenderedOrders() {
+function hideRenderedContent() {
   const childrenToRemove = [];
   for (const child of hook.children) {
     childrenToRemove.push(child);
@@ -146,7 +146,7 @@ function renderSingleOrder(order, parent) {
 }
 
 function renderDetails(order) {
-  hideRenderedOrders();
+  hideRenderedContent();
   const container = ElementHelper.create('div').setId('product-details');
   const backContainer = ElementHelper.create('div')
     .setId('back-container')
@@ -157,7 +157,7 @@ function renderDetails(order) {
     .setId('back-button')
     .setParent(backContainer);
   backButton.htmlElement.addEventListener('click', () => {
-    hideRenderedOrders();
+    hideRenderedContent();
     renderOrders(orders);
   });
 
@@ -313,7 +313,7 @@ function renderDetails(order) {
     ) {
       const newComment = textarea.htmlElement.value;
       order.comment += `${commentCount > 0 ? ';' : ''}${newComment}`;
-      hideRenderedOrders();
+      hideRenderedContent();
       renderDetails(order);
     }
   });
