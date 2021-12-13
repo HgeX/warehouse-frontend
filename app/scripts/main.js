@@ -120,14 +120,20 @@ function renderSingleOrder(order, parent) {
     .setParent(priceInfoContainer);
 
   // Create comment info
-  const comment = order.comment;
+  const comments = order.comment ? order.comment.split(';') : [];
+  const commentText =
+    comments.length > 1
+      ? `${comments.length} comments`
+      : comments.length === 1
+      ? `Comment: ${comments[0]}`
+      : 'No comment was added.';
   const commentInfoContainer = ElementHelper.create('div')
     .setClass('comment-info card-entry additional-info')
     .setParent(orderContainer);
   ElementHelper.create('i').setClass('ph-chat').setParent(commentInfoContainer);
   ElementHelper.create('p')
     .setClass('decorated')
-    .setText(comment ? `Comment: ${comment}` : 'No comment was added.')
+    .setText(commentText)
     .setParent(commentInfoContainer);
 
   orderContainer.htmlElement.addEventListener('click', () =>
@@ -146,7 +152,7 @@ function renderDetails(order) {
     .setClass('ph-arrow-left decoration')
     .setId('back-button')
     .setParent(backContainer);
-  backButton.htmlElement.addEventListener('click', event => {
+  backButton.htmlElement.addEventListener('click', () => {
     hideRenderedOrders();
     renderOrders(orders);
   });
@@ -258,9 +264,10 @@ function renderDetails(order) {
       );
   });
 
-  const comments = order.comment.split(';');
+  const comments = order.comment ? order.comment.split(';') : [];
+  const commentCount = order.comment ? comments.length : 0;
   ElementHelper.create('h3')
-    .setText(`Comments (${comments.length})`)
+    .setText(`Comments (${commentCount})`)
     .setClass('category')
     .setParent(container);
 
@@ -269,12 +276,32 @@ function renderDetails(order) {
     .setId('products-container');
 
   comments.forEach(comment => {
-    ElementHelper.create('p').setParent(commentsContainer).setText(comment);
+    const commentContainer = ElementHelper.create('div')
+      .setParent(commentsContainer)
+      .setClass('product-info-entry comment');
+    ElementHelper.create('i').setClass('ph-chat').setParent(commentContainer);
+    ElementHelper.create('p')
+      .setParent(commentContainer)
+      .setText(comment)
+      .setClass('decorated');
   });
 
-  // container.htmlElement.innerHTML += `
-  //   <p>${order.comment}</p>
-  // `;
+  const textarea = ElementHelper.create('textarea')
+    .setAttr('placeholder', 'Add a comment...')
+    .setAttr('rows', '7')
+    .setAttr('cols', '100')
+    .setParent(container);
+  textarea.htmlElement.addEventListener('keyup', event => {
+    if (
+      textarea.htmlElement === document.activeElement &&
+      event.key === 'Enter'
+    ) {
+      const newComment = textarea.htmlElement.value;
+      order.comment += `${commentCount > 0 ? ';' : ''}${newComment}`;
+      hideRenderedOrders();
+      renderDetails(order);
+    }
+  });
 
   hook.appendChild(container.htmlElement);
 }

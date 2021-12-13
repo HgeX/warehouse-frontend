@@ -30,6 +30,11 @@ class ElementHelper {
     return this;
   }
 
+  setAttr(attr, val) {
+    this.htmlElement.setAttribute(attr, val);
+    return this;
+  }
+
   static create(tagName) {
     return new ElementHelper(tagName);
   }

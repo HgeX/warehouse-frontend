@@ -207,3 +207,19 @@ body {
 .product-info-entry i {
   color: var(--primary-color);
 }
+
+.comment {
+  margin-bottom: 0.5rem;
+}
+
+#product-details textarea {
+  margin-left: 1rem;
+  margin-top: 2rem;
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  background: var(--main-color);
+}
+
+#product-details textarea:focus {
+  outline: 2px solid var(--primary-color);
+}
