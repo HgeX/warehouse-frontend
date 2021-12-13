@@ -218,6 +218,7 @@ body {
   border-radius: 5px;
   border: 1px solid var(--border-color);
   background: var(--main-color);
+  resize: vertical;
 }
 
 #product-details textarea:focus {
