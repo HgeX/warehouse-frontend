@@ -42,7 +42,7 @@ if (orders) {
 async function fetchData() {
   try {
     const resp = await fetch(ORDERS_URL).then(resp => resp.json());
-    return resp;
+    return resp.sort((a, b) => a.orderid - b.orderid);
   } catch (e) {
     loadingText.textContent = `An internal error occured. ${e.message}`;
   }
