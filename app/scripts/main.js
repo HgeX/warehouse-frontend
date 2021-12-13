@@ -138,30 +138,143 @@ function renderSingleOrder(order, parent) {
 function renderDetails(order) {
   hideRenderedOrders();
   const container = ElementHelper.create('div').setId('product-details');
-  container.htmlElement.innerHTML = `
-    <p>${order.orderid}</p>
-    <p>${order.customerid}</p>
-    <p>${order.customer}</p>
-    <p>${order.invaddr}</p>
-    <p>${order.delivaddr}</p>
-    <p>${order.deliverydate}</p>
-    <p>${order.respsalesperson}</p>
-    <p>${order.comment}</p>
-    <p>${order.totalprice}</p>
-  `;
+  const backContainer = ElementHelper.create('div')
+    .setId('back-container')
+    .setParent(container);
 
-  order.products.forEach(product => {
-    container.htmlElement.innerHTML += `
-      <p>-------------</p>
-      <p>${product.code}</p>
-      <p>${product.product}</p>
-      <p>${product.description}</p>
-      <p>${product.suppliercode}</p>
-      <p>${product.qty}</p>
-      <p>${product.unit_price}</p>
-      <p>${product.shelf_pos}</p>
-    `;
+  const backButton = ElementHelper.create('i')
+    .setClass('ph-arrow-left decoration')
+    .setId('back-button')
+    .setParent(backContainer);
+  backButton.htmlElement.addEventListener('click', event => {
+    hideRenderedOrders();
+    renderOrders(orders);
   });
+
+  ElementHelper.create('h3')
+    .setText('Back to all orders')
+    .setParent(backContainer);
+
+  ElementHelper.create('h3')
+    .setText(`Order details #${order.orderid}`)
+    .setClass('category')
+    .setParent(container);
+
+  const orderInfoContainer = ElementHelper.create('div')
+    .setParent(container)
+    .setId('product-info-container');
+
+  const customerContainer = ElementHelper.create('div')
+    .setParent(orderInfoContainer)
+    .setClass('product-info-entry')
+    .setId('customer-container');
+  ElementHelper.create('i').setClass('ph-user').setParent(customerContainer);
+  ElementHelper.create('p')
+    .setText(`Customer: ${order.customer} (#${order.customerid})`)
+    .setClass('decorated')
+    .setParent(customerContainer);
+
+  const invAddress = order.invaddr;
+  const invAddressText = invAddress ? invAddress.toString() : '-';
+  const invoiceAddressContainer = ElementHelper.create('div')
+    .setParent(orderInfoContainer)
+    .setClass('product-info-entry')
+    .setId('invaddr-container');
+  ElementHelper.create('i')
+    .setClass('ph-receipt')
+    .setParent(invoiceAddressContainer);
+  ElementHelper.create('p')
+    .setText(`Invoice address: ${invAddressText}`)
+    .setClass('decorated')
+    .setParent(invoiceAddressContainer);
+
+  const deliveryAddress = order.delivaddr;
+  const deliveryAddressText = deliveryAddress
+    ? deliveryAddress.toString()
+    : '-';
+  const deliveryAddressContainer = ElementHelper.create('div')
+    .setParent(orderInfoContainer)
+    .setClass('product-info-entry')
+    .setId('delivaddr-container');
+  ElementHelper.create('i')
+    .setClass('ph-map-pin')
+    .setParent(deliveryAddressContainer);
+  ElementHelper.create('p')
+    .setText(`Delivery address: ${deliveryAddressText}`)
+    .setClass('decorated')
+    .setParent(deliveryAddressContainer);
+
+  const delivDateContainer = ElementHelper.create('div')
+    .setParent(orderInfoContainer)
+    .setClass('product-info-entry')
+    .setId('deliv-date-container');
+  ElementHelper.create('i')
+    .setClass('ph-calendar')
+    .setParent(delivDateContainer);
+  ElementHelper.create('p')
+    .setText(`Delivery date: ${order.deliverydate}`)
+    .setClass('decorated')
+    .setParent(delivDateContainer);
+
+  const salesPersonContainer = ElementHelper.create('div')
+    .setParent(orderInfoContainer)
+    .setClass('product-info-entry')
+    .setId('sales-person-container');
+  ElementHelper.create('i')
+    .setClass('ph-person')
+    .setParent(salesPersonContainer);
+  ElementHelper.create('p')
+    .setText(`Sales person: ${order.respsalesperson}`)
+    .setClass('decorated')
+    .setParent(salesPersonContainer);
+
+  const totalPriceContainer = ElementHelper.create('div')
+    .setParent(orderInfoContainer)
+    .setClass('product-info-entry')
+    .setId('total-price-container');
+  ElementHelper.create('i')
+    .setClass('ph-wallet')
+    .setParent(totalPriceContainer);
+  ElementHelper.create('p')
+    .setText(`Total price: ${order.totalprice}€`)
+    .setClass('decorated')
+    .setParent(totalPriceContainer);
+
+  const products = order.products;
+  ElementHelper.create('h3')
+    .setText(`Products (${products.length})`)
+    .setClass('category')
+    .setParent(container);
+
+  const productsContainer = ElementHelper.create('div')
+    .setParent(container)
+    .setId('products-container');
+
+  products.forEach(product => {
+    ElementHelper.create('p')
+      .setParent(productsContainer)
+      .setText(
+        `${product.code} | ${product.product} | ${product.description} | ${product.suppliercode} | ${product.qty} | ${product.unit_price} | ${product.shelf_pos}`
+      );
+  });
+
+  const comments = order.comment.split(';');
+  ElementHelper.create('h3')
+    .setText(`Comments (${comments.length})`)
+    .setClass('category')
+    .setParent(container);
+
+  const commentsContainer = ElementHelper.create('div')
+    .setParent(container)
+    .setId('products-container');
+
+  comments.forEach(comment => {
+    ElementHelper.create('p').setParent(commentsContainer).setText(comment);
+  });
+
+  // container.htmlElement.innerHTML += `
+  //   <p>${order.comment}</p>
+  // `;
 
   hook.appendChild(container.htmlElement);
 }
