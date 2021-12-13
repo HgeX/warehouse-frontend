@@ -66,11 +66,15 @@ function hideRenderedOrders() {
 }
 
 function renderOrders(orders) {
-  orders.forEach(each => renderSingleOrder(each));
+  const ordersContainer = ElementHelper.create('div').setId('orders-container');
+  orders.forEach(each => renderSingleOrder(each, ordersContainer));
+  hook.appendChild(ordersContainer.htmlElement);
 }
 
-function renderSingleOrder(order) {
-  const orderContainer = ElementHelper.create('div').setClass('card');
+function renderSingleOrder(order, parent) {
+  const orderContainer = ElementHelper.create('div')
+    .setClass('card')
+    .setParent(parent);
   // Create title
   const titleContainer = ElementHelper.create('div')
     .setClass('card-title card-entry')
@@ -129,14 +133,12 @@ function renderSingleOrder(order) {
   orderContainer.htmlElement.addEventListener('click', () =>
     renderDetails(order)
   );
-  hook.appendChild(orderContainer.htmlElement);
 }
 
 function renderDetails(order) {
-  console.log('renderDetails');
   hideRenderedOrders();
-  const div = document.createElement('div');
-  div.innerHTML = `
+  const container = ElementHelper.create('div').setId('product-details');
+  container.htmlElement.innerHTML = `
     <p>${order.orderid}</p>
     <p>${order.customerid}</p>
     <p>${order.customer}</p>
@@ -149,7 +151,7 @@ function renderDetails(order) {
   `;
 
   order.products.forEach(product => {
-    div.innerHTML += `
+    container.htmlElement.innerHTML += `
       <p>-------------</p>
       <p>${product.code}</p>
       <p>${product.product}</p>
@@ -161,5 +163,5 @@ function renderDetails(order) {
     `;
   });
 
-  hook.appendChild(div);
+  hook.appendChild(container.htmlElement);
 }

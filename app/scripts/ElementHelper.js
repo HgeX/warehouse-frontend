@@ -10,6 +10,11 @@ class ElementHelper {
     return this;
   }
 
+  setId(id) {
+    this.htmlElement.id = id;
+    return this;
+  }
+
   setOnClick(onClick) {
     this.htmlElement.onClick = onClick;
     return this;
