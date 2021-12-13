@@ -1,6 +1,8 @@
 export default function (searchinput, orders) {
   //determines what type of search to run and calls relevant function
 
+  console.log(orders); // debug
+
   let output = [];
 
   console.log('search input is: ' + searchinput); // debug
@@ -23,8 +25,6 @@ export default function (searchinput, orders) {
   let searchcontent = searchinput; // copies search input to a new string for manipulation
   searchcontent = searchcontent.replace(/\w+(?=:):/, ''); // removes search parameter and colon from string, leaving just search contents
   console.log('searchcontent is: ' + searchcontent); // debug
-
-  console.log(orders);
 
   switch (searchparameter) {
     case 'orderid':
@@ -61,9 +61,8 @@ export default function (searchinput, orders) {
       console.log('basic search condition matched'); // debug
       output = basicSearch(searchcontent, orders);
   }
-
+  console.log("Output of the searchHandler return is: " + output) //debug
   return output;
-
 }
 
 function basicSearch(searchTerm, ordersArray) { //TODO expand search scope
@@ -72,7 +71,7 @@ function basicSearch(searchTerm, ordersArray) { //TODO expand search scope
 
   for (let i=0; i < ordersArray.length; i++) {
     if ((ordersArray[i].orderid == searchTerm) || (ordersArray[i].customerid == searchTerm)) {
-      results.push(ordersArray[i].orderid);
+      results.push(ordersArray[i]);
       console.log("Array of matched orders: " + results); //debug
     }
   }
@@ -121,8 +120,29 @@ function addressSearch(searchTerm, ordersArray) { //TODO make case insensitive? 
   return results;
 }
 
-function deliveryDateSearch(searchTerm, ordersArray) { //TODO implement delivery date search
+function deliveryDateSearch(searchTerm, ordersArray) {
   // called with parameter "date". Returns an array of orderids that match
+  let results = [];
+  let dateRegex = /\d{1,4}/g; // finds DD, MM and YYYY (alt format D, M, YY) from searchTerm. Separators should be ignored
+  let dateStorageArray = []; //TODO don't forget to catch a null result
+  let searchString = "";
+
+  for (let i=0; i < ordersArray.length; i++) {
+    dateStorageArray = searchTerm.match(dateRegex);
+
+    dateStorageArray[0] = parseInt(dateStorageArray[0]);
+    dateStorageArray[1] = parseInt(dateStorageArray[1]);
+    if (dateStorageArray[2] < 99) {
+      dateStorageArray[2] = parseInt(dateStorageArray[2]) + 2000;
+    }
+    searchString = dateStorageArray[0] + "-" + dateStorageArray[1] + "-" + dateStorageArray[2];
+    
+    if (ordersArray[i].deliverydate == searchString) {
+      results.push(ordersArray[i].orderid);
+      console.log("Array of matched orders: " + results); //debug
+    }
+  }
+  return results;
 }
 
 function respSalesPersonSearch(searchTerm, ordersArray) { 
