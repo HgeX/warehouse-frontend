@@ -190,7 +190,9 @@ function renderSingleOrder(order, parent) {
 function renderDetails(order) {
   hideRenderedContent();
   searchInput.disabled = true;
+  // Disabled sticky header
   viewingOrderDetails = true;
+  header.classList.remove('sticky');
   const container = ElementHelper.create('div').setId('product-details');
   const backContainer = ElementHelper.create('div')
     .setId('back-container')

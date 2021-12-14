@@ -298,3 +298,49 @@ body {
 #error-message i {
   font-size: 2rem;
 }
+
+@media (max-width: 540px) {
+  #products-container {
+    display: block;
+  }
+
+  #products-container > :not(.switch-container) {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  #orders-container {
+    display: block;
+  }
+
+  .card {
+    margin-bottom: 1rem;
+  }
+
+  #product-info-container {
+    display: block;
+  }
+}
+
+@media (max-width: 1024px) {
+  #welcome-container {
+    display: none;
+  }
+
+  #main-nav {
+    grid-template-areas: 'searchbar logout';
+  }
+
+  .search-container {
+    width: 100%;
+  }
+
+  #orders-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  #product-info-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
