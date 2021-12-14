@@ -18,6 +18,8 @@ welcomeHook.textContent = formattedText;
 
 clearSearchButton.addEventListener('click', () => {
   searchInput.value = null;
+  hideRenderedContent();
+  renderOrders(orders);
 });
 
 logoutButton.addEventListener('click', event => {
@@ -52,9 +54,13 @@ function handleSearch(event) {
   event.preventDefault();
   const search = searchInput.value;
   if (search) {
-    //hideRenderedContent();
-    //renderOrders(searchHandler(search, orders));
-    searchHandler(search, orders);
+    hideRenderedContent();
+    const result = searchHandler(search, orders);
+    if (result.length === 0) {
+      renderErrorMessage();
+    } else {
+      renderOrders(result);
+    }
   }
 }
 
@@ -67,7 +73,20 @@ function hideRenderedContent() {
   childrenToRemove.forEach(child => hook.removeChild(child));
 }
 
+function renderErrorMessage() {
+  const errorMsgContainer = ElementHelper.create('div').setId('error-message');
+  ElementHelper.create('i')
+    .setClass('ph-warning-circle-bold')
+    .setParent(errorMsgContainer);
+  ElementHelper.create('h2')
+    .setClass('decorated')
+    .setText('No orders matched this criteria.')
+    .setParent(errorMsgContainer);
+  hook.appendChild(errorMsgContainer.htmlElement);
+}
+
 function renderOrders(orders) {
+  searchInput.disabled = false;
   const ordersContainer = ElementHelper.create('div').setId('orders-container');
   orders.forEach(each => renderSingleOrder(each, ordersContainer));
   hook.appendChild(ordersContainer.htmlElement);
@@ -87,7 +106,7 @@ function renderSingleOrder(order, parent) {
     .setClass('card-title card-entry')
     .setParent(orderContainer);
   ElementHelper.create('i').setClass('ph-package').setParent(titleContainer);
-  ElementHelper.create('h3')
+  const orderTitle = ElementHelper.create('h3')
     .setClass('decorated')
     .setText(`Order #${order.orderid}`)
     .setParent(titleContainer);
@@ -96,6 +115,7 @@ function renderSingleOrder(order, parent) {
     ElementHelper.create('i')
       .setClass('ph-check-circle decorated')
       .setParent(titleContainer);
+    orderTitle.htmlElement.classList.toggle('strikethrough');
   }
 
   // Create customer info
@@ -152,6 +172,7 @@ function renderSingleOrder(order, parent) {
 
 function renderDetails(order) {
   hideRenderedContent();
+  searchInput.disabled = true;
   const container = ElementHelper.create('div').setId('product-details');
   const backContainer = ElementHelper.create('div')
     .setId('back-container')

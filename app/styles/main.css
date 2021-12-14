@@ -29,6 +29,17 @@ body {
   grid-area: welcome;
 }
 
+#welcome-container {
+  display: flex;
+  align-items: center;
+}
+
+#welcome-container #user-icon {
+  border-radius: 50%;
+  padding: 0.5rem;
+  background: var(--dark-accent-color);
+}
+
 .search-container {
   grid-area: searchbar;
   display: flex;
@@ -70,8 +81,13 @@ body {
   display: none;
 }
 
+#search {
+  color: var(--main-color);
+}
+
 #search:focus {
   outline: none;
+  color: var(--main-color);
 }
 
 #logout-button {
@@ -270,4 +286,15 @@ body {
 #products-container .switch-container {
   display: flex;
   align-items: center;
+}
+
+#error-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+#error-message i {
+  font-size: 2rem;
 }

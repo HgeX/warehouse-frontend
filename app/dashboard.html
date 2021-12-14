@@ -24,17 +24,19 @@
 
   <body>
     <nav id="main-nav">
-      <!-- The welcome text is rendered by JavaScript -->
-      <p id="welcome"></p>
+      <div id="welcome-container">
+        <!-- The welcome text is rendered by JavaScript -->
+        <i class="ph-user" id="user-icon"></i>
+        <p class="decorated" id="welcome"></p>
+      </div>
       <div class="search-container">
         <i id="search-icon" class="ph-magnifying-glass"></i>
         <input
-            type="text"
-            id="search"
-            placeholder="Search..."
-            class="primary-input navbar-item"
-          />
-        </form>
+          type="text"
+          id="search"
+          placeholder="Search..."
+          class="primary-input navbar-item"
+        />
         <i id="clear-icon" class="ph-x"></i>
       </div>
       <button id="logout-button" class="primary-button">
