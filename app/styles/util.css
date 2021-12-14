@@ -44,3 +44,9 @@
 .strikethrough {
   text-decoration: line-through;
 }
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}

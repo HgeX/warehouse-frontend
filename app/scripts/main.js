@@ -1,10 +1,8 @@
 import ElementHelper from './ElementHelper.js';
 import searchHandler from './util.js';
 
-// True constants
 const WELCOME_TEXT = 'Welcome, ';
 const ORDERS_URL = 'http://www.cc.puv.fi/~asa/json/project.json';
-// Not so constant constants lol
 const welcomeHook = document.getElementById('welcome');
 const hook = document.getElementById('hook');
 const searchInput = document.getElementById('search');
@@ -12,6 +10,21 @@ const searchButton = document.getElementById('search-icon');
 const clearSearchButton = document.getElementById('clear-icon');
 const logoutButton = document.getElementById('logout-button');
 const loadingText = document.getElementById('loading-text');
+const header = document.getElementById('main-nav');
+const offsetTop = header.offsetTop;
+// Need this to disable the headers sticky behaviour
+// when the order details page is opened.
+let viewingOrderDetails = false;
+
+window.onscroll = () => {
+  if (!viewingOrderDetails) {
+    if (window.pageYOffset > offsetTop) {
+      header.classList.add('sticky');
+    } else {
+      header.classList.remove('sticky');
+    }
+  }
+};
 
 const formattedText = WELCOME_TEXT.concat(sessionStorage.getItem('username'));
 welcomeHook.textContent = formattedText;
@@ -33,7 +46,7 @@ searchButton.addEventListener('click', event => {
 });
 searchInput.addEventListener('keyup', event => {
   if (searchInput === document.activeElement && event.key === 'Enter') {
-    handleSearch(false);
+    handleSearch();
   }
 });
 
@@ -52,17 +65,17 @@ async function fetchData() {
   }
 }
 
-function handleSearch(fallbackToDisplayAll) {
+function handleSearch() {
   const search = searchInput.value;
+  hideRenderedContent();
   if (search) {
-    hideRenderedContent();
     const result = searchHandler(search, orders);
     if (result.length === 0) {
       renderErrorMessage();
     } else {
       renderOrders(result);
     }
-  } else if (fallbackToDisplayAll) {
+  } else {
     renderOrders(orders);
   }
 }
@@ -90,6 +103,7 @@ function renderErrorMessage() {
 
 function renderOrders(orders) {
   searchInput.disabled = false;
+  viewingOrderDetails = false;
   const ordersContainer = ElementHelper.create('div').setId('orders-container');
   orders.forEach(each => renderSingleOrder(each, ordersContainer));
   hook.appendChild(ordersContainer.htmlElement);
@@ -176,6 +190,7 @@ function renderSingleOrder(order, parent) {
 function renderDetails(order) {
   hideRenderedContent();
   searchInput.disabled = true;
+  viewingOrderDetails = true;
   const container = ElementHelper.create('div').setId('product-details');
   const backContainer = ElementHelper.create('div')
     .setId('back-container')
@@ -187,7 +202,7 @@ function renderDetails(order) {
     .setParent(backContainer);
   backButton.htmlElement.addEventListener('click', () => {
     hideRenderedContent();
-    handleSearch(true);
+    handleSearch();
   });
 
   ElementHelper.create('h3')
