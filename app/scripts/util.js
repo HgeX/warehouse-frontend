@@ -57,6 +57,7 @@ export default function (searchinput, orders) {
       output = isSearch(searchcontent, orders);
       break;
     case 'not':
+    case 'isnot':
       output = isNotSearch(searchcontent, orders);
       break;
 
