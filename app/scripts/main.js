@@ -28,10 +28,12 @@ logoutButton.addEventListener('click', event => {
   window.location.replace('./index.html');
 });
 
-searchButton.addEventListener('click', event => handleSearch(event));
+searchButton.addEventListener('click', event => {
+  event.preventDefault();
+});
 searchInput.addEventListener('keyup', event => {
   if (searchInput === document.activeElement && event.key === 'Enter') {
-    handleSearch(event);
+    handleSearch(false);
   }
 });
 
@@ -50,8 +52,7 @@ async function fetchData() {
   }
 }
 
-function handleSearch(event) {
-  event.preventDefault();
+function handleSearch(fallbackToDisplayAll) {
   const search = searchInput.value;
   if (search) {
     hideRenderedContent();
@@ -61,6 +62,8 @@ function handleSearch(event) {
     } else {
       renderOrders(result);
     }
+  } else if (fallbackToDisplayAll) {
+    renderOrders(orders);
   }
 }
 
@@ -184,7 +187,7 @@ function renderDetails(order) {
     .setParent(backContainer);
   backButton.htmlElement.addEventListener('click', () => {
     hideRenderedContent();
-    renderOrders(orders);
+    handleSearch(true);
   });
 
   ElementHelper.create('h3')
