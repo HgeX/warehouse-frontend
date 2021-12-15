@@ -477,13 +477,17 @@ function openPrintPage(order) {
             }
             .table-title {
               font-weight: 800;
+              text-decoration: underline;
             }
             #product-container {
               display: grid;
               grid-template-columns: repeat(3, 1fr);
             }
             .push-right {
-              margin-left: 0.5rem 0 0 2rem;
+              margin: 0.5rem 0 0 2rem;
+            }
+            .important {
+              font-weight: bold;
             }
           </style>
         </head>
@@ -546,6 +550,13 @@ function openPrintPage(order) {
         .setParent(productContainer)
     );
   });
+
+  ['Total', '', `${order.totalprice}€`].forEach(field =>
+    ElementHelper.create('p')
+      .setClass('grid-item important')
+      .setParent(productContainer)
+      .setText(field)
+  );
 
   ElementHelper.create('hr')
     .setAttr('style', 'margin-top: 0.5rem')
