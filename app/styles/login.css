@@ -70,18 +70,6 @@ body {
   justify-content: center;
 }
 
-.form-container footer {
-  text-align: center;
-  width: 100%;
-  justify-content: center;
-}
-
-.form-container footer strong {
-  text-decoration: underline;
-  cursor: pointer;
-  color: var(--primary-color);
-}
-
 @media (max-width: 500px) {
   .container {
     background-color: var(--main-color);
