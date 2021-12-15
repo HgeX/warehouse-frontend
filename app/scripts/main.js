@@ -410,15 +410,14 @@ function renderDetails(order) {
 
   const readyButtonText = 'Mark as ready';
   const notReadyButtonText = 'Mark as not ready';
+  const buttonContainer = ElementHelper.create('div')
+    .setId('button-container')
+    .setParent(container);
   ElementHelper.create('button')
     .setClass('primary-button')
     .setId('done-button')
     .setText(order.ready ? notReadyButtonText : readyButtonText)
-    .setParent(
-      ElementHelper.create('div')
-        .setId('done-button-container')
-        .setParent(container)
-    )
+    .setParent(buttonContainer)
     .setOnClick((event, button) => {
       event.preventDefault();
       const action = order.ready
@@ -435,5 +434,123 @@ function renderDetails(order) {
       action(button);
     });
 
+  ElementHelper.create('button')
+    .setClass('primary-button')
+    .setId('print-button')
+    .setText('Print this order')
+    .setParent(buttonContainer)
+    .setOnClick(event => {
+      event.preventDefault();
+      openPrintPage(order);
+    });
+
   hook.appendChild(container.htmlElement);
+}
+
+function openPrintPage(order) {
+  const printWindow = window.open(
+    '',
+    'mywindow',
+    'status=1,content="width=device-width"'
+  );
+
+  const doc = printWindow.document;
+  doc.write(
+    `
+      <html>
+        <head>
+          <title>Details of Order #${order.orderid}</title>
+          <style>
+            * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+            }
+            h3 {
+              margin-bottom: 0.5rem;
+            }
+            .grid-item {
+              margin: 0.5rem 1rem 0 0;
+            }
+            .title {
+              margin-top: 2rem;
+            }
+            .table-title {
+              font-weight: 800;
+            }
+            #product-container {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+            }
+            .push-right {
+              margin-left: 0.5rem 0 0 2rem;
+            }
+          </style>
+        </head>
+    `
+  );
+  doc.write('<body onafterprint="self.close()">');
+  doc.write('<p>Some Fake Company<br>Some Street 123<br>12345 Some City</p>');
+  const orderContainer = ElementHelper.create('div');
+
+  ElementHelper.create('h3')
+    .setText('Order')
+    .setParent(orderContainer)
+    .setClass('title');
+  ElementHelper.create('p')
+    .setClass('push-right')
+    .setParent(orderContainer)
+    .setText(`Order ID: ${order.orderid}`);
+  ElementHelper.create('p')
+    .setClass('push-right')
+    .setParent(orderContainer)
+    .setText(
+      `Invoice address: ${order.invaddr ? order.invaddr.toString() : '-'}`
+    );
+  ElementHelper.create('p')
+    .setClass('push-right')
+    .setParent(orderContainer)
+    .setText(
+      `Delivery address: ${order.delivaddr ? order.delivaddr.toString() : '-'}`
+    );
+  ElementHelper.create('p')
+    .setClass('push-right')
+    .setParent(orderContainer)
+    .setText(`Delivery date: ${order.deliverydate}`);
+
+  ElementHelper.create('h3')
+    .setText('Products')
+    .setParent(orderContainer)
+    .setClass('title');
+  ElementHelper.create('hr').setParent(orderContainer);
+
+  const productContainer = ElementHelper.create('div')
+    .setId('product-container')
+    .setParent(orderContainer);
+  ['Product code', 'Description', 'Unit price'].forEach(field =>
+    ElementHelper.create('p')
+      .setParent(productContainer)
+      .setText(field)
+      .setClass('grid-item table-title')
+  );
+
+  order.products.forEach(product => {
+    const name = product.product
+      ? `${product.product} - ${product.code}`
+      : product.code;
+    const desc = product.description ? product.description.toString() : '-';
+    [name, desc, `${product.unit_price}€`].forEach(data =>
+      ElementHelper.create('p')
+        .setClass('grid-item')
+        .setText(data)
+        .setParent(productContainer)
+    );
+  });
+
+  ElementHelper.create('hr')
+    .setAttr('style', 'margin-top: 0.5rem')
+    .setParent(orderContainer);
+  doc.body.appendChild(orderContainer.htmlElement);
+  doc.write('</body></html>');
+  printWindow.print();
 }
