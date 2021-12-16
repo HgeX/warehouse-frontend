@@ -15,6 +15,7 @@ const offsetTop = header.offsetTop;
 // Need this to disable the headers sticky behaviour
 // when the order details page is opened.
 let viewingOrderDetails = false;
+let windowY = 0;
 
 window.onscroll = () => {
   if (!viewingOrderDetails) {
@@ -114,7 +115,7 @@ function renderSingleOrder(order, parent) {
     .setClass('card')
     .setParent(parent)
     .setOnClick(() => {
-      renderDetails(order);
+      renderDetails(order, true);
       window.scrollTo(0, 0);
     });
 
@@ -187,7 +188,10 @@ function renderSingleOrder(order, parent) {
     .setParent(commentInfoContainer);
 }
 
-function renderDetails(order) {
+function renderDetails(order, updateY) {
+  if (updateY) {
+    windowY = window.scrollY;
+  }
   hideRenderedContent();
   searchInput.disabled = true;
   // Disabled sticky header
@@ -205,6 +209,7 @@ function renderDetails(order) {
   backButton.htmlElement.addEventListener('click', () => {
     hideRenderedContent();
     handleSearch();
+    window.scrollTo(0, windowY);
   });
 
   ElementHelper.create('h3')
@@ -404,7 +409,7 @@ function renderDetails(order) {
       const newComment = textarea.htmlElement.value;
       order.comment += `${commentCount > 0 ? ';' : ''}${newComment}`;
       hideRenderedContent();
-      renderDetails(order);
+      renderDetails(order, false);
     }
   });
 
