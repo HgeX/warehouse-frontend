@@ -2,7 +2,7 @@ import ElementHelper from './ElementHelper.js';
 import searchHandler from './util.js';
 
 const WELCOME_TEXT = 'Welcome, ';
-const ORDERS_URL = 'http://www.cc.puv.fi/~asa/json/project.json';
+const ORDERS_URL = 'https://www.cc.puv.fi/~asa/json/project.json';
 const welcomeHook = document.getElementById('welcome');
 const hook = document.getElementById('hook');
 const searchInput = document.getElementById('search');
