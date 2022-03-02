@@ -3,7 +3,7 @@
 Vaasa University of Applied Sciences - Introduction to Programming, Final Assignment
 
 ## Task
-Develop a mobile-friendly system for the workers of a fictional warehouse. Since databases and backend servers haven't been discussed in this course, most functionalities (such as adding comments, updating orders) are completely dummy. No frameworks such as ReactJS or VueJS were used, the single page application effect is achieved using vanilla JavaScript *(How painful it was? Yes.)*.
+Develop a mobile-friendly system for the workers of a fictional warehouse. Since databases and backend servers haven't been discussed in this course, most functionalities (such as adding comments, updating orders) are completely dummy. No frameworks such as ReactJS or VueJS were used, the single page application feel is achieved using vanilla JavaScript *(How painful it was? Yes.)*.
 
 ## Requirements
 - Login page requiring an email address and a password. Since this website would count as a companies internal system, no registration functionality was required.
